@@ -16,9 +16,22 @@
 </head>
 <body>
     <h1>About Me</h1>
-    <p>Julie is not an Amazon PM.</p>
-    <img src="headshot.jpg" alt="A headshot of Julie">
-</div>
-    <a href="index.html">Back to Home</a> <!-- Link back to the main page -->
+    <p>Julie refuses to be an Amazon PM. She is going to be a different PM.</p>
+   
+    <!-- Dynamic Image Section -->
+    <img id="dynamicImage" src="headshot.jpg" alt="A headshot of Julie"> <!-- Initial image -->
+
+    <div class="image-buttons">
+        <button onclick="changeImage('headshot.jpg')">Show Headshot</button>
+        <button onclick="changeImage('another-image.jpg')">Show Another Image</button>
+    </div>
+
+    <a class="button" href="index.html">Back to Home</a> <!-- Link back to the main page -->
+
+    <script>
+        function changeImage(imageName) {
+            document.getElementById('dynamicImage').src = imageName; // Change the image source
+        }
+    </script>
 </body>
 </html>
