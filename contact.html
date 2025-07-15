@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F6F1E9; /* Light gray background */
+            color: #333; /* Dark gray text color */
+            text-align: center;
+        }
+
+        form {
+            margin: 20px auto;
+            max-width: 400px; /* Limit form width */
+            padding: 20px;
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 10px; /* Rounded corners */
+            background-color: #fff; /* White background for the form */
+        }
+
+        input, textarea {
+            width: 100%; /* Full width */
+            padding: 10px; /* Padding inside inputs */
+            margin: 10px 0; /* Space between inputs */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        button {
+            background-color: #CE7BB0; /* Button background color */
+            color: white; /* Button text color */
+            padding: 10px; /* Padding for button */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        button:hover {
+            background-color: #A267AC; /* Darker pink on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Me</h1>
+    <form action="send_email.php" method="POST"> <!-- Action points to the PHP script -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
+</body>
+</html>
