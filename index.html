@@ -382,6 +382,23 @@ function updateSummary() {
   summaryIn.textContent = `Money In: ${formatCurrency(moneyIn)}`;
   summaryOut.textContent = `Money Out: ${formatCurrency(moneyOut)}`;
   summaryBalance.innerHTML = `<strong>Current Balance: ${formatCurrency(startingBudget + moneyIn - moneyOut)}</strong>`;
+
+  // Game over logic
+  if ((startingBudget + moneyIn - moneyOut) <= 0 && actionsDiv.style.display !== 'none') {
+    document.body.innerHTML = '<div id="game-over">game over :(</div>';
+    document.body.style.background = '#000';
+    document.body.style.color = '#fff';
+    document.body.style.height = '100vh';
+    document.body.style.display = 'flex';
+    document.body.style.justifyContent = 'center';
+    document.body.style.alignItems = 'center';
+    document.body.style.margin = '0';
+    document.body.style.fontSize = '0.8em';
+    document.body.style.fontFamily = 'monospace, sans-serif';
+    const gameOverDiv = document.getElementById('game-over');
+    gameOverDiv.style.fontSize = '1.1em';
+    gameOverDiv.style.textAlign = 'center';
+  }
 }
 
 // Format input as currency with commas as user types
