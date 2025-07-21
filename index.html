@@ -27,14 +27,14 @@
 
         /* Circular drop-down button */
         .dropdown button {
-            background-color: #CE7BB0; /* Pink background */
+            background-color: #0077B5; /* LinkedIn blue */
             color: white; /* White text */
-            width: 180px; /* Increased width for text */
-            height: 80px; /* Increased height for text */
+            width: 220px; /* Rectangle width */
+            height: 56px; /* Rectangle height */
             border: none; /* Remove border */
-            border-radius: 50%; /* Make it circular */
+            border-radius: 12px; /* Less rounded corners for a more rectangular look */
             cursor: pointer; /* Pointer cursor on hover */
-            font-size: 16px; /* Font size */
+            font-size: 18px; /* Slightly larger font */
             display: flex; /* Use flexbox for centering text */
             justify-content: center; /* Center text horizontally */
             align-items: center; /* Center text vertically */
@@ -44,7 +44,7 @@
         }
 
         .dropdown button:hover {
-            background-color: #A267AC; /* Darker Pink on hover */
+            background-color: #005983; /* Darker LinkedIn blue on hover */
         }
 
         /* The dropdown content (hidden by default) */
@@ -78,7 +78,7 @@
         }
 
         /* Roaming dropdown styles */
-        #roaming-dropdown {
+        .roaming-dropdown {
             position: absolute;
             left: 50px;
             top: 200px;
@@ -106,6 +106,78 @@
             font-style: italic;
             color: #CE7BB0;
         }
+        .budget-tracker {
+            background: #e3f2fd;
+            border: 2px solid #0077B5;
+            border-radius: 16px;
+            max-width: 400px;
+            margin: 32px auto 0 auto;
+            padding: 24px 28px 20px 28px;
+            box-shadow: 0 2px 8px rgba(0,119,181,0.07);
+            text-align: center;
+        }
+        .budget-tracker h2 {
+            color: #0077B5;
+            margin-bottom: 16px;
+        }
+        .budget-tracker label {
+            display: block;
+            margin: 10px 0 4px 0;
+            font-weight: bold;
+        }
+        .budget-tracker input[type="number"] {
+            width: 80px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid #b0bec5;
+            margin-right: 8px;
+        }
+        .budget-tracker button {
+            background: #0077B5;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 4px;
+            min-width: 70px;
+        }
+        .budget-tracker button:hover {
+            background: #005983;
+        }
+        .budget-summary {
+            margin-top: 18px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px 0;
+            box-shadow: 0 1px 4px rgba(0,119,181,0.04);
+        }
+        .budget-summary span {
+            display: block;
+            margin: 4px 0;
+            font-size: 1.08em;
+        }
+        .expense-list {
+            margin: 16px 0 0 0;
+            padding: 0;
+            list-style: none;
+            text-align: left;
+            max-width: 300px;
+        }
+        .expense-list li {
+            margin: 4px 0;
+            font-size: 1em;
+            display: flex;
+            justify-content: space-between;
+        }
+        .expense-list .expense-label {
+            flex: 1;
+        }
+        .expense-list .expense-amount {
+            min-width: 90px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -118,12 +190,94 @@
       <p/>
       <em>Good luck!</em>
     </p>
+    <div class="budget-tracker" id="budget-tracker">
+      <h2>Budget Tracker</h2>
+      <div id="budget-setup">
+        <label for="starting-budget">Enter Starting Budget:</label>
+        <input type="text" id="starting-budget" min="0" step="1" inputmode="numeric" pattern="[0-9,]*" />
+        <button id="set-budget">Set Budget</button>
+        <button id="reset-budget" type="button">Reset</button>
+      </div>
+      <div id="budget-actions" style="display:none;">
+        <label for="money-in">Money In:</label>
+        <input type="number" id="money-in" step="0.01" />
+        <button id="add-in">Add</button>
+        <ul class="expense-list">
+          <li><span class="expense-label">Rent and utilities:</span> <span class="expense-amount" id="expense-rent">$2,000</span></li>
+          <li><span class="expense-label">Groceries:</span> <span class="expense-amount" id="expense-groceries">$350</span></li>
+          <li><span class="expense-label">Health Insurance:</span> <span class="expense-amount" id="expense-health">$100</span></li>
+          <li style="font-weight:bold; border-top:1px solid #b0bec5; margin-top:8px; padding-top:6px;">
+            <span class="expense-label">Total:</span> <span class="expense-amount" id="expense-total">$2,450</span>
+          </li>
+        </ul>
+      </div>
+      <div class="budget-summary" id="budget-summary" style="display:none;">
+        <span id="summary-start">Starting Budget: $0.00</span>
+        <span id="summary-in">Money In: $0.00</span>
+        <span id="summary-out">Money Out: $0.00</span>
+        <span id="summary-balance"><strong>Current Balance: $0.00</strong></span>
+      </div>
+    </div>
 
     <!-- Remove the 'Do Not Contact Me' heading -->
     <!-- <h1 class="small-title left-align">Do Not Contact Me</h1> -->
 
-    <div class="dropdown left-align" id="roaming-dropdown">
-        <button id="roaming-menu">Apply for a Job</button>
+    <div class="dropdown left-align roaming-dropdown" id="roaming-dropdown-1" style="left: 50px; top: 200px;">
+        <button class="roaming-menu">Apply for a Job</button>
+        <div class="dropdown-content">
+            <a href="about.html">About</a>
+            <a href="Resume_JY.pdf">Resume</a>
+            <a href="#Creative">Creative</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+    <div class="dropdown left-align roaming-dropdown" id="roaming-dropdown-2" style="left: 300px; top: 120px;">
+        <button class="roaming-menu">Apply for a Job</button>
+        <div class="dropdown-content">
+            <a href="about.html">About</a>
+            <a href="Resume_JY.pdf">Resume</a>
+            <a href="#Creative">Creative</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+    <div class="dropdown left-align roaming-dropdown" id="roaming-dropdown-3" style="left: 550px; top: 300px;">
+        <button class="roaming-menu">Apply for a Job</button>
+        <div class="dropdown-content">
+            <a href="about.html">About</a>
+            <a href="Resume_JY.pdf">Resume</a>
+            <a href="#Creative">Creative</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+    <div class="dropdown left-align roaming-dropdown" id="roaming-dropdown-4" style="left: 150px; top: 400px;">
+        <button class="roaming-menu">Apply for a Job</button>
+        <div class="dropdown-content">
+            <a href="about.html">About</a>
+            <a href="Resume_JY.pdf">Resume</a>
+            <a href="#Creative">Creative</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+    <div class="dropdown left-align roaming-dropdown" id="roaming-dropdown-5" style="left: 400px; top: 500px;">
+        <button class="roaming-menu">Apply for a Job</button>
+        <div class="dropdown-content">
+            <a href="about.html">About</a>
+            <a href="Resume_JY.pdf">Resume</a>
+            <a href="#Creative">Creative</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+    <div class="dropdown left-align roaming-dropdown" id="roaming-dropdown-6" style="left: 650px; top: 150px;">
+        <button class="roaming-menu">Apply for a Job</button>
+        <div class="dropdown-content">
+            <a href="about.html">About</a>
+            <a href="Resume_JY.pdf">Resume</a>
+            <a href="#Creative">Creative</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+    <div class="dropdown left-align roaming-dropdown" id="roaming-dropdown-7" style="left: 800px; top: 350px;">
+        <button class="roaming-menu">Apply for a Job</button>
         <div class="dropdown-content">
             <a href="about.html">About</a>
             <a href="Resume_JY.pdf">Resume</a>
@@ -133,26 +287,23 @@
     </div>
 </body>
 <script>
-const roamingDropdown = document.getElementById('roaming-dropdown');
-const roamingMenu = document.getElementById('roaming-menu');
+const roamingDropdowns = Array.from(document.querySelectorAll('.roaming-dropdown'));
 
-function getRandomPosition() {
+function getRandomPosition(dropdown) {
     const padding = 20;
-    const maxX = window.innerWidth - roamingDropdown.offsetWidth - padding;
-    const maxY = window.innerHeight - roamingDropdown.offsetHeight - padding;
+    const maxX = window.innerWidth - dropdown.offsetWidth - padding;
+    const maxY = window.innerHeight - dropdown.offsetHeight - padding;
     const x = Math.floor(Math.random() * maxX);
     const y = Math.floor(Math.random() * maxY);
     return { x, y };
 }
 
-let isMoving = false;
-
-function animateMoveMenu(targetX, targetY) {
-    if (isMoving) return; // Prevent overlapping animations
-    isMoving = true;
-    const duration = 600; // ms, increase for slower movement
-    const startX = parseInt(roamingDropdown.style.left, 10) || 0;
-    const startY = parseInt(roamingDropdown.style.top, 10) || 0;
+function animateMoveMenu(dropdown, targetX, targetY) {
+    if (dropdown.isMoving) return;
+    dropdown.isMoving = true;
+    const duration = 600;
+    const startX = parseInt(dropdown.style.left, 10) || 0;
+    const startY = parseInt(dropdown.style.top, 10) || 0;
     const deltaX = targetX - startX;
     const deltaY = targetY - startY;
     const startTime = performance.now();
@@ -160,38 +311,134 @@ function animateMoveMenu(targetX, targetY) {
     function animate(time) {
         const elapsed = time - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        roamingDropdown.style.left = (startX + deltaX * progress) + 'px';
-        roamingDropdown.style.top = (startY + deltaY * progress) + 'px';
+        dropdown.style.left = (startX + deltaX * progress) + 'px';
+        dropdown.style.top = (startY + deltaY * progress) + 'px';
         if (progress < 1) {
             requestAnimationFrame(animate);
         } else {
-            isMoving = false;
+            dropdown.isMoving = false;
         }
     }
     requestAnimationFrame(animate);
 }
 
-if (roamingDropdown && roamingMenu) {
-    document.addEventListener('mousemove', function(e) {
-        const rect = roamingDropdown.getBoundingClientRect();
+document.addEventListener('mousemove', function(e) {
+    roamingDropdowns.forEach(dropdown => {
+        const rect = dropdown.getBoundingClientRect();
         const mouseX = e.clientX;
         const mouseY = e.clientY;
-        const buffer = 100; // distance in px to trigger move
-
+        const buffer = 100;
         if (
             mouseX > rect.left - buffer && mouseX < rect.right + buffer &&
             mouseY > rect.top - buffer && mouseY < rect.bottom + buffer
         ) {
-            const { x, y } = getRandomPosition();
-            animateMoveMenu(x, y);
+            const { x, y } = getRandomPosition(dropdown);
+            animateMoveMenu(dropdown, x, y);
         }
     });
+});
 
-    // Optional: Move every few seconds for extra annoyance
-    // setInterval(() => {
-    //     const { x, y } = getRandomPosition();
-    //     animateMoveMenu(x, y);
-    // }, 4000);
+// Budget Tracker Logic
+function formatCurrency(amount) {
+  return '$' + amount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
+
+let startingBudget = 0;
+let moneyIn = 0;
+let moneyOut = 0;
+
+const setupDiv = document.getElementById('budget-setup');
+const actionsDiv = document.getElementById('budget-actions');
+const summaryDiv = document.getElementById('budget-summary');
+const setBudgetBtn = document.getElementById('set-budget');
+const resetBudgetBtn = document.getElementById('reset-budget');
+const startingBudgetInput = document.getElementById('starting-budget');
+const moneyInInput = document.getElementById('money-in');
+const addInBtn = document.getElementById('add-in');
+const summaryStart = document.getElementById('summary-start');
+const summaryIn = document.getElementById('summary-in');
+const summaryOut = document.getElementById('summary-out');
+const summaryBalance = document.getElementById('summary-balance');
+
+// Fixed expenses
+const expenses = [
+  { name: 'Rent and utilities', amount: 2000 },
+  { name: 'Groceries', amount: 350 },
+  { name: 'Health Insurance', amount: 100 }
+];
+const totalExpense = expenses.reduce((sum, e) => sum + e.amount, 0);
+
+// Set expense display with currency formatting
+document.getElementById('expense-rent').textContent = formatCurrency(expenses[0].amount);
+document.getElementById('expense-groceries').textContent = formatCurrency(expenses[1].amount);
+document.getElementById('expense-health').textContent = formatCurrency(expenses[2].amount);
+
+// Update total expense display
+const expenseTotalSpan = document.getElementById('expense-total');
+expenseTotalSpan.textContent = formatCurrency(totalExpense);
+
+function updateSummary() {
+  summaryStart.textContent = `Starting Budget: ${formatCurrency(startingBudget)}`;
+  summaryIn.textContent = `Money In: ${formatCurrency(moneyIn)}`;
+  summaryOut.textContent = `Money Out: ${formatCurrency(moneyOut)}`;
+  summaryBalance.innerHTML = `<strong>Current Balance: ${formatCurrency(startingBudget + moneyIn - moneyOut)}</strong>`;
+}
+
+// Format input as currency with commas as user types
+startingBudgetInput.addEventListener('input', function(e) {
+  let value = startingBudgetInput.value.replace(/[^\d]/g, '');
+  if (value) {
+    value = parseInt(value, 10).toLocaleString();
+    startingBudgetInput.value = value;
+  } else {
+    startingBudgetInput.value = '';
+  }
+});
+
+setBudgetBtn.addEventListener('click', function() {
+  const val = parseFloat(startingBudgetInput.value.replace(/,/g, ''));
+  if (!isNaN(val) && val >= 0) {
+    startingBudget = val;
+    setupDiv.style.display = 'none';
+    actionsDiv.style.display = '';
+    summaryDiv.style.display = '';
+    updateSummary();
+  } else {
+    alert('Please enter a valid starting budget.');
+  }
+});
+
+resetBudgetBtn.addEventListener('click', function() {
+  startingBudget = 0;
+  moneyIn = 0;
+  moneyOut = 0;
+  startingBudgetInput.value = '';
+  setupDiv.style.display = '';
+  actionsDiv.style.display = 'none';
+  summaryDiv.style.display = 'none';
+  updateSummary();
+});
+
+addInBtn.addEventListener('click', function() {
+  const val = parseFloat(moneyInInput.value);
+  if (!isNaN(val)) {
+    moneyIn += val;
+    moneyInInput.value = '';
+    updateSummary();
+  }
+});
+
+// Subtract expenses on any click (except on Apply for a Job buttons)
+document.addEventListener('click', function(e) {
+  // Only subtract if budget is set and not clicking an Apply for a Job button
+  if (
+    actionsDiv.style.display !== 'none' &&
+    !e.target.classList.contains('roaming-menu') &&
+    !e.target.closest('.roaming-menu')
+  ) {
+    moneyOut += totalExpense;
+    updateSummary();
+  }
+});
 </script>
 </html>
