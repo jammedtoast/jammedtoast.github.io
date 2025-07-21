@@ -29,8 +29,8 @@
         .dropdown button {
             background-color: #CE7BB0; /* Pink background */
             color: white; /* White text */
-            width: 50px; /* Set width */
-            height: 50px; /* Set height */
+            width: 180px; /* Increased width for text */
+            height: 80px; /* Increased height for text */
             border: none; /* Remove border */
             border-radius: 50%; /* Make it circular */
             cursor: pointer; /* Pointer cursor on hover */
@@ -38,6 +38,9 @@
             display: flex; /* Use flexbox for centering text */
             justify-content: center; /* Center text horizontally */
             align-items: center; /* Center text vertically */
+            white-space: normal; /* Allow text to wrap if needed */
+            text-align: center; /* Center text inside button */
+            font-weight: bold; /* Make text bold */
         }
 
         .dropdown button:hover {
@@ -73,16 +76,54 @@
             margin-left: 0;
             display: block;
         }
+
+        /* Roaming dropdown styles */
+        #roaming-dropdown {
+            position: absolute;
+            left: 50px;
+            top: 200px;
+            z-index: 1000;
+        }
+        .instructions {
+            background: #fff8e1;
+            border-left: 5px solid #CE7BB0;
+            padding: 18px 24px;
+            margin: 24px auto 32px auto;
+            max-width: 600px;
+            font-size: 1.15em;
+            font-style: italic;
+            box-shadow: 0 2px 8px rgba(206,123,176,0.07);
+            color: #5a4760;
+            text-align: left;
+            border-radius: 8px;
+        }
+        .instructions strong {
+            font-style: normal;
+            font-weight: bold;
+            color: #A267AC;
+        }
+        .instructions em {
+            font-style: italic;
+            color: #CE7BB0;
+        }
     </style>
 </head>
 <body>
-    <h1>Julie Yoon</h1>
-    <p>Julie has been trying to get a job for many MANY months. Now she is making a website to show you she can do literally anything.</p>
+    <h1>2025 Job Market Simulator</h1>
+    <p/>
+    <p class="instructions">
+      This is a simulation to show you what it is like to navigate the job market in 2025.<br>
+      <strong>Scenario:</strong> You are now a recent graduate from a top-tier MBA program navigating the job market.<br>
+      You have spent all your hard-earned savings to pay for the MBA program and you must get a job in the next 3 months.<br>
+      <p/>
+      <em>Good luck!</em>
+    </p>
 
-    <h1 class="small-title left-align">Do Not Contact Me</h1> 
+    <!-- Remove the 'Do Not Contact Me' heading -->
+    <!-- <h1 class="small-title left-align">Do Not Contact Me</h1> -->
 
-    <div class="dropdown left-align">
-        <button>☰</button> <!-- Use a symbol for the button, like a hamburger icon -->
+    <div class="dropdown left-align" id="roaming-dropdown">
+        <button id="roaming-menu">Apply for a Job</button>
         <div class="dropdown-content">
             <a href="about.html">About</a>
             <a href="Resume_JY.pdf">Resume</a>
@@ -91,4 +132,66 @@
         </div>
     </div>
 </body>
+<script>
+const roamingDropdown = document.getElementById('roaming-dropdown');
+const roamingMenu = document.getElementById('roaming-menu');
+
+function getRandomPosition() {
+    const padding = 20;
+    const maxX = window.innerWidth - roamingDropdown.offsetWidth - padding;
+    const maxY = window.innerHeight - roamingDropdown.offsetHeight - padding;
+    const x = Math.floor(Math.random() * maxX);
+    const y = Math.floor(Math.random() * maxY);
+    return { x, y };
+}
+
+let isMoving = false;
+
+function animateMoveMenu(targetX, targetY) {
+    if (isMoving) return; // Prevent overlapping animations
+    isMoving = true;
+    const duration = 600; // ms, increase for slower movement
+    const startX = parseInt(roamingDropdown.style.left, 10) || 0;
+    const startY = parseInt(roamingDropdown.style.top, 10) || 0;
+    const deltaX = targetX - startX;
+    const deltaY = targetY - startY;
+    const startTime = performance.now();
+
+    function animate(time) {
+        const elapsed = time - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        roamingDropdown.style.left = (startX + deltaX * progress) + 'px';
+        roamingDropdown.style.top = (startY + deltaY * progress) + 'px';
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        } else {
+            isMoving = false;
+        }
+    }
+    requestAnimationFrame(animate);
+}
+
+if (roamingDropdown && roamingMenu) {
+    document.addEventListener('mousemove', function(e) {
+        const rect = roamingDropdown.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const buffer = 100; // distance in px to trigger move
+
+        if (
+            mouseX > rect.left - buffer && mouseX < rect.right + buffer &&
+            mouseY > rect.top - buffer && mouseY < rect.bottom + buffer
+        ) {
+            const { x, y } = getRandomPosition();
+            animateMoveMenu(x, y);
+        }
+    });
+
+    // Optional: Move every few seconds for extra annoyance
+    // setInterval(() => {
+    //     const { x, y } = getRandomPosition();
+    //     animateMoveMenu(x, y);
+    // }, 4000);
+}
+</script>
 </html>
